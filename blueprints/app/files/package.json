@@ -1,0 +1,31 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "description": "Small description for <%= name %> goes here",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/karma start --single-run --browsers ChromeHeadless",
+    "build": "node_modules/.bin/rollup -c rollup.config.js"
+  },
+  "repository": "",
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "homepage": "",
+  "dependencies": {
+    "cropduster": "https://github.com/movableink/cropduster#mn/es6-imports",
+    "jquery": "^3.2.1",
+    "studio-app": "https://github.com/movableink/studio-app.git"
+  },
+  "devDependencies": {
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-html2js-preprocessor": "^1.1.0",
+    "karma-qunit": "^1.2.1",
+    "karma-rollup-preprocessor": "https://github.com/movableink/karma-rollup-preprocessor#multi-config",
+    "qunit": "^1.0.0",
+    "rollup-split-index": "https://github.com/movableink/rollup-split-index.git#98a028424f"
+  }
+}

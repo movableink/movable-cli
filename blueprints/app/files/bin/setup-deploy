@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# Set up deployment
+
+gitolite_name_file = File.absolute_path __FILE__ + '/../../.gitolite-name'
+puts gitolite_name_file
+
+gitolite_name = File.basename File.absolute_path(__FILE__ + '/../..')
+
+if File.exist? gitolite_name_file
+  gitolite_name = File.read(gitolite_name_file).chomp
+end
+
+def run(cmd)
+  puts cmd
+  puts `#{cmd}`
+end
+
+run "git remote add deploy git@git.movableink.com:#{gitolite_name}.git"
+run "git config alias.deploy-staging 'push deploy master:staging'"
+run "git config alias.deploy-production 'push deploy master:production'"

@@ -1,0 +1,66 @@
+---
+# Title of the app, to be displayed in the App Gallery.
+name: <%= name %>
+
+# List of people who have worked on this cartridge, not displayed anywhere else
+authors:
+- "Michael Nutt <michael@movableink.com>"
+
+# Populate the Javascript pane in studio with this file. Defaults to
+# `index.js`, if it is present. In your `index.html` file, the first
+# `<script></script>` tag with an `autoinline` attribute will be replaced
+# with an inlined tag using the code from the Javascript pane.
+javascript_file: dist/index.js
+
+# A short description of the app that will be displayed immediately below the
+# title in the App Gallery.
+description: App description goes here.
+
+# Populates a badge in the App Gallery.
+category: "data: rendering"
+
+# A reference to the icon to show in the App Gallery.
+icon_v2: bar-chart
+
+# Default dimensions of the app in the Studio workspace.
+width: 450
+height: 150
+
+# Show advanced options tab in the dashboard
+expose_advanced_options: true
+
+# A list if query parameters passed from the MI platform to the web
+# crop page. [brackets] denote values that will be replaced with query
+# parameters from the embed page.
+query_params:
+  mi_foo: '[mi_foo]'
+  mi_bar: '[mi_bar]'
+
+
+# A list of configuration options to be displayed in the sidebar in
+# Studio. The user will be able to configure these options, and the
+# results will be injected into your app's HTML under the `MI.options`
+# variable.
+fields:
+- name: "my_field"
+  type: "text"
+  label: "My Field"
+  value: "50"
+
+studio_options:
+  # You can specify extra tools in the Studio toolbar. Tools have a name
+  # and a base `type` attribute. (text, image, etc) You will be able to
+  # reference a tool from your javascript code based on its class name.
+  tools:
+    - name: "A tool"
+      icon: text-vector
+      type: text
+      locked: false
+      defaults:
+        text: '[current_value]'
+        previewText: '100'
+      fields:
+      - name: 'resize'
+        type: 'checkbox'
+        label: 'Resize text with progress bar'
+        value: true
