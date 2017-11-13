@@ -17,4 +17,6 @@ This utility takes care of the following:
 * Serving those apps from a webserver (`studio serve`)
 * Updating an app to the latest blueprint (`studio init`)
 
+## License
 
+See LICENSE.md.

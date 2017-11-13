@@ -1,13 +1,28 @@
 {
   "name": "studio-cli",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Create and manage Movable Ink Studio applications",
   "main": "index.js",
-  "repository": "https://github.com/movableink/studio-cli.git",
+  "homepage": "https://github.com/movableink/studio-cli",
+  "bugs": {
+    "url": "https://github.com/movableink/studio-cli/issues",
+    "email": "contact@movableink.com"
+  },
+  "repository": {
+    "url": "https://github.com/movableink/studio-cli.git",
+    "type": "git"
+  },
   "author": "Movable, Inc",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE.md",
   "private": false,
-  "trackingCode": "12345",
+  "engines": {
+    "node": ">= 6"
+  },
+  "keywords": [
+    "movableink",
+    "web crop",
+    "email"
+  ],
   "bin": {
     "studio": "./bin/studio"
   },
