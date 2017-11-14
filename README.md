@@ -5,7 +5,7 @@ Like `ember-cli`, but for studio apps.
 ## Usage
 
 ```sh
-npm install studio-cli
+yarn global add studio-cli
 studio new my-app
 cd my-app
 studio serve
