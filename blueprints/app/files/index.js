@@ -6,8 +6,8 @@ class <%= namespace %> extends StudioApp {
   constructor() {
     super();
 
-    this.foo = this.param("mi_foo", { type: "float", defaultValue: () => 'bar' });
-    this.bar = this.param("mi_bar", { type: "string", required: true });
+    this.foo = this.param("mi_foo", { type: "float", defaultValue: () => 1.23 });
+    this.bar = this.param("mi_bar", { type: "string", defaultValue: () => "world" });
   }
 
   render() {
@@ -21,10 +21,9 @@ class <%= namespace %> extends StudioApp {
   // Defining this method will override the default, which fills tags
   // using CD.params()
   fillElements() {
-    this.replaceTokens(this.tags, {
-      a_value: this.aValue,
-      another_value: this.anotherValue
-    });
+    this.replaceTokens(this.tags, Object.assign({
+      bar: this.bar
+    }, CD.params()));
   }
 }
 
