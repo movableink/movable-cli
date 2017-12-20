@@ -1,10 +1,11 @@
 ---
+
 # Title of the app, to be displayed in the App Gallery.
 name: <%= name %>
 
 # List of people who have worked on this cartridge, not displayed anywhere else
 authors:
-- "Michael Nutt <michael@movableink.com>"
+  - "Your Name <you@example.com>"
 
 # Populate the Javascript pane in studio with this file. Defaults to
 # `index.js`, if it is present. In your `index.html` file, the first
@@ -20,7 +21,7 @@ description: App description goes here.
 category: "data: rendering"
 
 # A reference to the icon to show in the App Gallery.
-icon_v2: bar-chart
+icon_v2: tools
 
 # Default dimensions of the app in the Studio workspace.
 width: 450
@@ -29,23 +30,22 @@ height: 150
 # Show advanced options tab in the dashboard
 expose_advanced_options: true
 
-# A list if query parameters passed from the MI platform to the web
+# A list of query parameters passed from the MI platform to the web
 # crop page. [brackets] denote values that will be replaced with query
 # parameters from the embed page.
 query_params:
   mi_foo: '[mi_foo]'
   mi_bar: '[mi_bar]'
 
-
 # A list of configuration options to be displayed in the sidebar in
 # Studio. The user will be able to configure these options, and the
 # results will be injected into your app's HTML under the `MI.options`
 # variable.
 fields:
-- name: "my_field"
-  type: "text"
-  label: "My Field"
-  value: "50"
+  - name: "my_field"
+    type: "text"
+    label: "My Field"
+    value: "50"
 
 studio_options:
   # You can specify extra tools in the Studio toolbar. Tools have a name
@@ -60,7 +60,7 @@ studio_options:
         text: '[current_value]'
         previewText: '100'
       fields:
-      - name: 'resize'
-        type: 'checkbox'
-        label: 'Resize text with progress bar'
-        value: true
+        - name: 'resize'
+          type: 'checkbox'
+          label: 'Resize text with progress bar'
+          value: true
