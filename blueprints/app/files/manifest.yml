@@ -34,8 +34,7 @@ expose_advanced_options: true
 # crop page. [brackets] denote values that will be replaced with query
 # parameters from the embed page.
 query_params:
-  mi_foo: '[mi_foo]'
-  mi_bar: '[mi_bar]'
+  name: '[name]'
 
 # A list of configuration options to be displayed in the sidebar in
 # Studio. The user will be able to configure these options, and the
