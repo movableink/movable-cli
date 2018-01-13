@@ -41,10 +41,20 @@ query_params:
 # results will be injected into your app's HTML under the `MI.options`
 # variable.
 fields:
-  - name: "my_field"
-    type: "text"
-    label: "My Field"
-    value: "50"
+  - name: backgroundColor
+    label: Background Color
+    type: select
+    value: white
+    description: ''
+    options:
+      - label: White
+        value: white
+      - label: Red
+        value: red
+      - label: Blue
+        value: blue
+      - label: Green
+        value: green
 
 studio_options:
   # You can specify extra tools in the Studio toolbar. Tools have a name
