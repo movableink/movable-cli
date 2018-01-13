@@ -5,7 +5,7 @@ name: <%= name %>
 
 # List of people who have worked on this cartridge, not displayed anywhere else
 authors:
-  - "Your Name <you@example.com>"
+  - Your Name <you@example.com>
 
 # Populate the Javascript pane in studio with this file. Defaults to
 # `index.js`, if it is present. In your `index.html` file, the first
@@ -18,7 +18,7 @@ javascript_file: dist/index.js
 description: App description goes here.
 
 # Populates a badge in the App Gallery.
-category: "data: rendering"
+category: 'data: rendering'
 
 # A reference to the icon to show in the App Gallery.
 icon_v2: tools
@@ -52,7 +52,7 @@ studio_options:
   # and a base `type` attribute. (text, image, etc) You will be able to
   # reference a tool from your javascript code based on its class name.
   tools:
-    - name: "A tool"
+    - name: A tool
       icon: text-vector
       type: text
       locked: false
@@ -60,7 +60,7 @@ studio_options:
         text: '[current_value]'
         previewText: '100'
       fields:
-        - name: 'resize'
-          type: 'checkbox'
-          label: 'Resize text with progress bar'
+        - name: resize
+          type: checkbox
+          label: Resize text with progress bar
           value: true
