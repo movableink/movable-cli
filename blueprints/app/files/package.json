@@ -15,9 +15,9 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "homepage": "",
   "dependencies": {
-    "cropduster": "https://github.com/movableink/cropduster#mn/es6-imports",
+    "cropduster": "^4.1.0",
     "jquery": "^3.2.1",
-    "studio-app": "https://github.com/movableink/studio-app.git#bf448bc"
+    "studio-app": "^1.1.0"
   },
   "devDependencies": {
     "karma": "^1.7.1",
