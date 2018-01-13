@@ -10,7 +10,12 @@ class <%= namespace %> extends StudioApp {
   render() {
     // Rendering code goes here
 
-    this.fillElements();
+    const bgColor = this.options.backgroundColor || "white";
+    document.body.style.background = bgColor;
+
+    const name = this.param("name", { defaultValue: "world" });
+
+    this.replaceTokens(this.tags, { name });
     this.autoresizeTags();
     this.waitForImageAssets();
   }
