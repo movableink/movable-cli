@@ -5,7 +5,7 @@ Like `ember-cli`, but for Movable Ink apps.
 ## Usage
 
 ```sh
-yarn global add movable-cli
+yarn global add @movable/cli
 movable new my-app
 cd my-app
 movable serve
