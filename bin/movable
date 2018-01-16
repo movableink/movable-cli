@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-process.title = 'studio';
+process.title = 'movable';
 
 const cli = require('../lib/cli');
 
@@ -11,8 +11,8 @@ cli({
   outputStream: process.stdout,
   errorStream: process.stderr,
   cli: {
-    name: 'studio',
-    npmPackage: 'studio-cli',
+    name: 'movable',
+    npmPackage: 'movable-cli',
     root: require('path').resolve(__dirname, '..')
   }
 }).then(function(result) {

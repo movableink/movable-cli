@@ -3,7 +3,7 @@
 const stringUtil = require("ember-cli-string-utils");
 
 module.exports = {
-  description: "The default blueprint for studio-cli projects.",
+  description: "The default blueprint for movable-cli projects.",
 
   locals(options) {
     let entity = options.entity;
