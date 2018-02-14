@@ -2,7 +2,7 @@
   "name": "<%= name %>",
   "version": "1.0.0",
   "description": "Small description for <%= name %> goes here",
-  "main": "index.js",
+  "main": "app/js/index.js",
   "directories": {
     "test": "tests"
   },

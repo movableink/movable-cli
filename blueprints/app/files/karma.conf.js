@@ -4,7 +4,7 @@ module.exports = function(config) {
   config.set({
     browsers: ["ChromeHeadless"],
     frameworks: ["qunit"],
-    files: ["index.js", "tests/helper.js", "tests/**/*.js", "index.html"],
+    files: ["app/js/index.js", "tests/helper.js", "tests/**/*.js", "app/index.html"],
     crossOriginAttribute: false, // otherwise can't load remote scripts
 
     preprocessors: {
