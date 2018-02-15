@@ -28,8 +28,8 @@
     "movable": "./bin/movable"
   },
   "dependencies": {
-    "ember-cli": "^2.16.2",
-    "http-proxy-middleware": "^0.17.4",
-    "js-yaml": "^3.10.0"
+    "ember-cli": "2.16.2",
+    "http-proxy-middleware": "0.17.4",
+    "js-yaml": "3.10.0"
   }
 }
