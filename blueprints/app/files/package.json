@@ -21,7 +21,7 @@
     "studio-app": "^1.1.0"
   },
   "devDependencies": {
-    "@movable/cli": "^0.4.0",
+    "@movable/cli": "^0.5.2",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-html2js-preprocessor": "^1.1.0",
