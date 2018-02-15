@@ -12,7 +12,7 @@ cli({
   errorStream: process.stderr,
   cli: {
     name: 'movable',
-    npmPackage: 'movable-cli',
+    npmPackage: '@movable/cli',
     root: require('path').resolve(__dirname, '..')
   }
 }).then(function(result) {
