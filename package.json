@@ -1,6 +1,6 @@
 {
   "name": "@movable/cli",
-  "version": "0.4.0",
+  "version": "0.5.2",
   "description": "Create and manage Movable Ink Studio applications",
   "main": "index.js",
   "homepage": "https://github.com/movableink/movable-cli",
@@ -28,8 +28,8 @@
     "movable": "./bin/movable"
   },
   "dependencies": {
-    "ember-cli": "3.0.0-beta.2",
-    "http-proxy-middleware": "^0.17.4",
-    "js-yaml": "^3.10.0"
+    "ember-cli": "3.0.0",
+    "http-proxy-middleware": "0.17.4",
+    "js-yaml": "3.10.0"
   }
 }

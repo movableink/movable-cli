@@ -18,6 +18,7 @@ class <%= namespace %> extends StudioApp {
     this.replaceTokens(this.tags, { name });
     this.autoresizeTags();
     this.waitForImageAssets();
+    window.APP_SUCCESSFULLY_RENDERED = false;
   }
 }
 
