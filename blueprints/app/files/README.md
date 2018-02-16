@@ -11,21 +11,30 @@ You will need the following things properly installed on your computer.
 * [Node.js](https://nodejs.org/)
 * [Yarn](https://yarnpkg.com/)
 
-## Updating in dev
+## Developing
 
-First, you need to have the `push-dev-cartridge` script. You can get it like so:
+First, ensure that you have the latest version of the MDK. Get it via:
 
 ```
-curl 'https://movableink-chef.s3.amazonaws.com/local-tools/push-dev-cartridge' > /usr/local/bin/push-dev-cartridge
-chmod +x /usr/local/bin/push-dev-cartridge
+yarn global add @movable/cli
 ```
 
-(don't blindly download scripts, take a glance through it)
+Then you can start the UI via `movable serve` then navigate your browser to http://localhost:4200 to view the UI.
 
-Then, you can push locally by running `push-dev-cartridge` from this directory. This will do two things:
+You can run tests using `yarn test`.
+
+## Deploying to a local environment
+
+If you're running the Movable Ink platform locally, you can deploy to that with:
+
+```
+movable deploy development
+```
 
 * Uploads the directory to `movableink-cartridge-development` s3 bucket.
 * Posts to your local rails server to register the updated cartridge.
+
+This also requires the `s3cmd` tool and the relevant s3 credentials.
 
 ## Deploying to production
 
@@ -38,7 +47,7 @@ bin/setup-deploy
 Then you can deploy:
 
 ```
-git deploy-production
+movable deploy production
 ```
 
-This deploys your `master` branch to git.movableink.com and is the recommended deploy method.
+This deploys your current branch to git.movableink.com and is the recommended deploy method.
