@@ -1,0 +1,114 @@
+#!/usr/bin/env ruby
+
+# Development script to push a local cartridge
+
+require 'fileutils'
+require 'json'
+require 'net/http'
+require 'yaml'
+
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NO_COLOR="\033[0m"
+
+def is_cartridge?
+  File.exists?("./manifest.yml")
+end
+
+def should_package?(dir)
+  package = "#{dir}/package.json"
+  has_build?(package)
+end
+
+def has_build?(package_file)
+  return false unless File.exist? package_file
+  data = JSON.parse File.read(package_file)
+  return false unless data && data['scripts']
+  !!data['scripts']['build']
+end
+
+# Build S3 URI : s3://s3_bucket_name/project_name/sha_to_upload
+S3_PROTOCOL = "s3://"
+s3_bucket_name = "movableink-cartridges-development" # hard-coded, do not change
+
+# build directory that will be uploaded
+project_name = File.expand_path(`git rev-parse --git-dir 2>/dev/null`.strip).split("/").last
+if project_name == ".git"
+  project_name = File.basename(Dir.pwd)
+end
+project_name = project_name.sub(/\.git$/, "").sub(/-cartridge/, '')
+
+if File.exist? './.gitolite-name'
+  project_name = File.read('./.gitolite-name').chomp
+end
+
+sha_to_upload = `git rev-parse HEAD`.chomp
+email = `git config user.email`.chomp
+
+# In prod, just the SHA. In dev, prepend email to prevent conflicts
+sha_to_upload = [email, sha_to_upload].join('-')
+
+s3_uri = S3_PROTOCOL + [s3_bucket_name, project_name, sha_to_upload].join('/')
+
+begin
+  unless is_cartridge?
+    puts "This project is not a cartridge (no manifest.yml found), skipping..."
+    exit
+  end
+
+  if should_package?('.')
+    puts "Building project"
+    puts `yarn`
+    puts `yarn run build`
+  end
+
+  S3CMD_COMMAND = "s3cmd put -r -P --guess-mime-type --exclude=node_modules/**/* --exclude=.git/**/* * #{s3_uri}/"
+
+  puts "Uploading to S3 #{s3_bucket_name}/#{project_name} with revision SHA #{sha_to_upload}..."
+  `#{S3CMD_COMMAND}`
+  puts "Finished Uploading..."
+end
+
+
+structure = File.read('./manifest.yml')
+
+parsed_structure = YAML.load structure
+
+html_file = parsed_structure.fetch('html_file', 'index.html')
+html = File.read html_file
+css_file = parsed_structure.fetch('css_file', './style.css')
+css = File.read css_file if File.exist? css_file
+
+js_file = parsed_structure.fetch('javascript_file', './index.js')
+javascript = File.read js_file if File.exist? js_file
+
+params = {
+  key: project_name,
+  revision: sha_to_upload,
+  structure: structure,
+  html: html,
+  css: css,
+  javascript: javascript
+}.map{|k,v| [k, v] }
+
+if ARGV.include?('--verbose') or ARGV.include?('-v')
+  puts "PARAMS"
+  puts params
+end
+
+uri = URI.parse('http://movableink.localhost:3000/admin/manifests/git_update')
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri)
+request.set_form_data(params)
+
+response = http.request(request)
+
+if response.is_a? Net::HTTPSuccess
+  puts GREEN + "Successfully updated #{project_name} manifest to revision #{sha_to_upload}." + NO_COLOR
+else
+  puts RED + "Failed to update cartridge:"
+  puts response.body
+  puts NO_COLOR
+end
+
+puts "Exiting cartridge hook."
