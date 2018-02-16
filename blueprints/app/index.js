@@ -1,5 +1,7 @@
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
 const stringUtil = require("ember-cli-string-utils");
 
 module.exports = {
@@ -19,5 +21,10 @@ module.exports = {
       yarn: options.yarn,
       welcome: options.welcome
     };
+  },
+
+  afterInstall() {
+    const setupDeploy = path.join(this.project.root, 'bin', 'setup-deploy');
+    fs.chmodSync(setupDeploy, '0755');
   }
 };
