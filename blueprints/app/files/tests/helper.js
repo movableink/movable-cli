@@ -7,7 +7,7 @@ const common = {
 common.regex = new RegExp(`(${common.startCommentReg}|${common.finishComment})`, 'm');
 
 function wysiwygContent() {
-  const parts = window.__html__.index.split(common.regex);
+  const parts = window.__html__['app/index.html'].split(common.regex);
   if (parts.length !== 5) {
     throw 'missing wysiwyg block from html';
   }

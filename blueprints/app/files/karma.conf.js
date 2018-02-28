@@ -4,21 +4,14 @@ module.exports = function(config) {
   config.set({
     browsers: ["ChromeHeadless"],
     frameworks: ["qunit"],
-    files: ["index.js", "tests/helper.js", "tests/**/*.js", "index.html"],
+    files: ["app/js/index.js", "tests/helper.js", "tests/**/*.js", "app/index.html"],
     crossOriginAttribute: false, // otherwise can't load remote scripts
 
     preprocessors: {
-      "index.html": ["html2js"],
-      "index.js": ["rollup"]
+      "app/index.html": ["html2js"],
+      "app/js/index.js": ["rollup"]
     },
 
-    rollupPreprocessor: rollupConfig,
-
-    html2JsPreprocessor: {
-      processPath: function(filePath) {
-        // Drop the file extension
-        return filePath.replace(/\.html$/, "");
-      }
-    }
+    rollupPreprocessor: rollupConfig
   });
 };
