@@ -16,5 +16,5 @@ QUnit.test('an app', function(assert) {
 
   const app = new <%= namespace %>();
 
-  assert.equal(app.tags.length, 0, 'has no tags');
+  assert.equal(app.tags.length, 1, 'has a tag');
 });
