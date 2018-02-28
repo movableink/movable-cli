@@ -15,7 +15,7 @@ javascript_file: dist/index.js
 
 # CSS isn't used as much in Studio apps, but you can specify one here and
 # it will appear as a "CSS" pane in Studio Review mode
-css_file: app/css/style.css
+css_file: app/styles/style.css
 
 # Points to the main HTML file
 html_file: app/index.html
