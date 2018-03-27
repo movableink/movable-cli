@@ -28,9 +28,10 @@
     "movable": "./bin/movable"
   },
   "dependencies": {
+    "@movable/socketproxy": "^0.2.0",
     "ember-cli": "3.0.0",
+    "formidable": "^1.2.1",
     "http-proxy-middleware": "0.17.4",
-    "js-yaml": "3.10.0",
-    "@movable/socketproxy": "^0.2.0"
+    "js-yaml": "3.10.0"
   }
 }
