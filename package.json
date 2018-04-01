@@ -35,9 +35,11 @@
     "ember-cli": "3.0.0",
     "formidable": "^1.2.1",
     "http-proxy-middleware": "0.17.4",
-    "js-yaml": "3.10.0"
+    "js-yaml": "3.10.0",
+    "simple-oauth2": "^1.5.2"
   },
   "devDependencies": {
+    "co": "^4.6.0",
     "ember-cli-internal-test-helpers": "^0.9.1",
     "mocha": "^5.0.5"
   }
