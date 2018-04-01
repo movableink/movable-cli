@@ -24,7 +24,7 @@ cache:
     - $HOME/.cache # includes bower's cache
 
 env:
-  - TEST_COMMAND=test-all
+  - TEST_COMMAND=test
 
 matrix:
   fast_finish: true
