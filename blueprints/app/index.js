@@ -23,8 +23,10 @@ module.exports = {
     };
   },
 
-  afterInstall() {
-    const setupDeploy = path.join(this.project.root, 'bin', 'setup-deploy');
-    fs.chmodSync(setupDeploy, '0755');
+  afterInstall(options) {
+    if (!options.dryRun) {
+      const setupDeploy = path.join(this.project.root, 'bin', 'setup-deploy');
+      fs.chmodSync(setupDeploy, '0755');
+    }
   }
 };
