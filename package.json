@@ -1,6 +1,6 @@
 {
   "name": "@movable/cli",
-  "version": "0.13.0",
+  "version": "0.13.2",
   "description": "Create and manage Movable Ink Studio applications",
   "main": "index.js",
   "homepage": "https://github.com/movableink/movable-cli",
@@ -20,7 +20,7 @@
   "private": false,
   "trackingCode": "UA-13244752-7",
   "engines": {
-    "node": ">= 6"
+    "node": ">= 8"
   },
   "keywords": [
     "movableink",
