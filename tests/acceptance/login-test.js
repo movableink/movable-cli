@@ -130,7 +130,7 @@ describe('Acceptance: movable login', function() {
         isEmberCLIProject: () => false
       },
       oauth: oauthConfig,
-      api: apiConfig,
+      dashboardUrl: 'https://api-server.org',
       userConfig
     });
 

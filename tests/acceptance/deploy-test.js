@@ -34,11 +34,6 @@ const oauthConfig = {
   scope: 'mdk'
 };
 
-const apiConfig = {
-  host: 'api-server.org',
-  protocol: 'https'
-};
-
 const accessToken = {
   "access_token": "5683E74C-7514-4426-B64F-CF0C24223F69",
   "refresh_token": "8D175C5F-AE24-4333-8795-332B3BDA8FE3",
@@ -60,7 +55,9 @@ const userInfo = {
   },
   "user": {
     "id": 1,
-    "email": "foo@example.com"
+    "email": "foo@example.com",
+    "company_id": 1,
+    "features": {}
   },
   "company": {
     "id": 1,
@@ -109,7 +106,7 @@ describe('Acceptance: movable deploy', function() {
         isEmberCLIProject: () => true
       },
       oauth: oauthConfig,
-      api: apiConfig,
+      dashboardUrl: "https://api-server.org",
       userConfig,
       remoteUrl: 'http://localhost:14902'
     });
@@ -169,7 +166,7 @@ describe('Acceptance: movable deploy', function() {
     await command.run(options, ['development']).then(result => {
       throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
     }).catch(e => {
-      expect(e.message).to.eq('Problem authenticating, run `movable login`.');
+      expect(e.message).to.eq('Error refreshing access token: Problem authenticating, run `movable login`.');
     });
   });
 
@@ -181,7 +178,7 @@ describe('Acceptance: movable deploy', function() {
     await command.run(options, ['development']).then(result => {
       throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
     }).catch(e => {
-      expect(e.message).to.match(/Command failed: git push deploy-development/);
+      expect(e.message).to.match(/Command failed: git push --force deploy-development/);
       expect(e.message).to.match(/not found/);
     });
   });
@@ -190,7 +187,7 @@ describe('Acceptance: movable deploy', function() {
     await command.run(options, ['development']).then(result => {
       throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
     }).catch(e => {
-      expect(e.message).to.eq('Problem authenticating, run `movable login`.');
+      expect(e.message).to.eq('Error refreshing access token: Problem authenticating, run `movable login`.');
     });
   });
 });
