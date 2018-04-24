@@ -23,46 +23,46 @@ const tmp = require('ember-cli-internal-test-helpers/lib/helpers/tmp');
 let tmpPath = path.join(process.cwd(), 'tmp', 'deploy-test');
 
 const oauthConfig = {
-  "client": {
-    "id": "the client id",
-    "secret": "the client secret"
+  client: {
+    id: 'the client id',
+    secret: 'the client secret'
   },
-  "auth": {
-    "tokenHost": "https://authorization-server.org"
+  auth: {
+    tokenHost: 'https://authorization-server.org'
   },
   callbackURL: 'http://localhost:14942/oauth/callback',
   scope: 'mdk'
 };
 
 const accessToken = {
-  "access_token": "5683E74C-7514-4426-B64F-CF0C24223F69",
-  "refresh_token": "8D175C5F-AE24-4333-8795-332B3BDA8FE3",
-  "token_type": "bearer",
-  "expires_in": "240000"
+  access_token: '5683E74C-7514-4426-B64F-CF0C24223F69',
+  refresh_token: '8D175C5F-AE24-4333-8795-332B3BDA8FE3',
+  token_type: 'bearer',
+  expires_in: '240000'
 };
 
 // Data for ~/.mdk
 const userInfo = {
-  "auth": {
-    "token": {
+  auth: {
+    token: {
       access_token: accessToken.access_token,
       refresh_token: accessToken.refresh_token,
       token_type: accessToken.token_type,
       expires_in: accessToken.expires_in,
-      created_at: (new Date().getTime()),
-      expires_at: (new Date(new Date().getTime() + parseInt(accessToken.expires_in)))
+      created_at: new Date().getTime(),
+      expires_at: new Date(new Date().getTime() + parseInt(accessToken.expires_in))
     }
   },
-  "user": {
-    "id": 1,
-    "email": "foo@example.com",
-    "company_id": 1,
-    "features": {}
+  user: {
+    id: 1,
+    email: 'foo@example.com',
+    company_id: 1,
+    features: {}
   },
-  "company": {
-    "id": 1,
-    "name": "MyCo",
-    "slug": "my-co"
+  company: {
+    id: 1,
+    name: 'MyCo',
+    slug: 'my-co'
   }
 };
 
@@ -75,17 +75,10 @@ describe('Acceptance: movable deploy', function() {
     await tmp.setup(tmpPath);
     process.chdir(tmpPath);
 
-    await movable(['init',
-                   '--name',
-                   'foo',
-                   '--skip-npm',
-                   '--no-skip-git'],
-                  { skipGit: false });
+    await movable(['init', '--name', 'foo', '--skip-npm', '--no-skip-git'], { skipGit: false });
 
     const remoteGitDir = path.join(tmpPath, 'remote');
-    gitServer = new GitServer(remoteGitDir,
-                              userInfo.auth.token.access_token,
-                              '/my-co/foo.git');
+    gitServer = new GitServer(remoteGitDir, userInfo.auth.token.access_token, '/my-co/foo.git');
     await gitServer.initialize();
     await gitServer.listen(14902);
 
@@ -106,14 +99,14 @@ describe('Acceptance: movable deploy', function() {
         isEmberCLIProject: () => true
       },
       oauth: oauthConfig,
-      dashboardUrl: "https://api-server.org",
+      dashboardUrl: 'https://api-server.org',
       userConfig,
       remoteUrl: 'http://localhost:14902'
     });
 
     const userStub = nock('https://api-server.org')
-          .get('/user/info')
-          .reply(200, JSON.stringify(userResponse));
+      .get('/user/info')
+      .reply(200, JSON.stringify(userResponse));
 
     command = new DeployCommand(options);
   });
@@ -133,16 +126,23 @@ describe('Acceptance: movable deploy', function() {
   });
 
   it('fails deploys to nonexistent environment', async function() {
-    await command.run(options, ['foobar']).then(result => {
-      throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
-    }).catch(e => {
-      expect(e.message).to.match(/Usage: movable deploy/);
-    });
+    await command
+      .run(options, ['foobar'])
+      .then(result => {
+        throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
+      })
+      .catch(e => {
+        expect(e.message).to.match(/Usage: movable deploy/);
+      });
   });
 
   it('deploys successfully when valid remote already exists', async function() {
-    await execa('git', ['remote', 'add', 'deploy-development',
-                        `http://${userInfo.auth.token.access_token}@localhost:14902/my-co/foo.git`]);
+    await execa('git', [
+      'remote',
+      'add',
+      'deploy-development',
+      `http://${userInfo.auth.token.access_token}@localhost:14902/my-co/foo.git`
+    ]);
 
     await command.run(options, ['development']);
 
@@ -151,8 +151,12 @@ describe('Acceptance: movable deploy', function() {
 
   it('deploys successfully when expired remote exists and user is authenticated', async function() {
     await userConfig.append(userInfo);
-    await execa('git', ['remote', 'add', 'deploy-development',
-                        `http://expired-token@localhost:14902/my-co/foo.git`]);
+    await execa('git', [
+      'remote',
+      'add',
+      'deploy-development',
+      `http://expired-token@localhost:14902/my-co/foo.git`
+    ]);
 
     await command.run(options, ['development']);
 
@@ -160,34 +164,55 @@ describe('Acceptance: movable deploy', function() {
   });
 
   it('fails when expired remote exists and user is not authenticated', async function() {
-    await execa('git', ['remote', 'add', 'deploy-development',
-                        `http://expired-token@localhost:14902/my-co/foo.git`]);
+    await execa('git', [
+      'remote',
+      'add',
+      'deploy-development',
+      `http://expired-token@localhost:14902/my-co/foo.git`
+    ]);
 
-    await command.run(options, ['development']).then(result => {
-      throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
-    }).catch(e => {
-      expect(e.message).to.eq('Error refreshing access token: Problem authenticating, run `movable login`.');
-    });
+    await command
+      .run(options, ['development'])
+      .then(result => {
+        throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
+      })
+      .catch(e => {
+        expect(e.message).to.eq(
+          'Error refreshing access token: Problem authenticating, run `movable login`.'
+        );
+      });
   });
 
   it('fails when company slug does not exist', async function() {
     await userConfig.append(userInfo);
-    await execa('git', ['remote', 'add', 'deploy-development',
-                        `http://${userInfo.auth.token.access_token}@localhost:14902/bad-co/bad.git`]);
+    await execa('git', [
+      'remote',
+      'add',
+      'deploy-development',
+      `http://${userInfo.auth.token.access_token}@localhost:14902/bad-co/bad.git`
+    ]);
 
-    await command.run(options, ['development']).then(result => {
-      throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
-    }).catch(e => {
-      expect(e.message).to.match(/Command failed: git push --force deploy-development/);
-      expect(e.message).to.match(/not found/);
-    });
+    await command
+      .run(options, ['development'])
+      .then(result => {
+        throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
+      })
+      .catch(e => {
+        expect(e.message).to.match(/Command failed: git push --force deploy-development/);
+        expect(e.message).to.match(/not found/);
+      });
   });
 
   it('fails when user is not logged in', async function() {
-    await command.run(options, ['development']).then(result => {
-      throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
-    }).catch(e => {
-      expect(e.message).to.eq('Error refreshing access token: Problem authenticating, run `movable login`.');
-    });
+    await command
+      .run(options, ['development'])
+      .then(result => {
+        throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
+      })
+      .catch(e => {
+        expect(e.message).to.eq(
+          'Error refreshing access token: Problem authenticating, run `movable login`.'
+        );
+      });
   });
 });

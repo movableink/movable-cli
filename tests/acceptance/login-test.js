@@ -12,7 +12,7 @@ const td = require('testdouble');
 const expect = require('chai').expect;
 const request = require('request');
 const nock = require('nock');
-const Promise = require("rsvp").Promise;
+const Promise = require('rsvp').Promise;
 
 const LoginCommand = require('../../lib/commands/login');
 const LoginTask = require('../../lib/tasks/login');
@@ -21,24 +21,24 @@ const commandOptions = require('../factories/command-options');
 const requireAsHash = require('ember-cli/lib/utilities/require-as-hash');
 const Config = require('../../lib/models/config');
 
-var mochaAsync = (fn) => {
-    return async (done) => {
-        try {
-            await fn();
-            done();
-        } catch (err) {
-            done(err);
-        }
-    };
+var mochaAsync = fn => {
+  return async done => {
+    try {
+      await fn();
+      done();
+    } catch (err) {
+      done(err);
+    }
+  };
 };
 
 const oauthConfig = {
-  "client": {
-    "id": "the client id",
-    "secret": "the client secret"
+  client: {
+    id: 'the client id',
+    secret: 'the client secret'
   },
-  "auth": {
-    "tokenHost": "https://authorization-server.org"
+  auth: {
+    tokenHost: 'https://authorization-server.org'
   },
   callbackURL: 'http://localhost:14942/oauth/callback',
   scope: 'mdk'
@@ -50,22 +50,24 @@ const apiConfig = {
 };
 
 const accessToken = {
-  "access_token": "5683E74C-7514-4426-B64F-CF0C24223F69",
-  "refresh_token": "8D175C5F-AE24-4333-8795-332B3BDA8FE3",
-  "token_type": "bearer",
-  "expires_in": "240000"
+  access_token: '5683E74C-7514-4426-B64F-CF0C24223F69',
+  refresh_token: '8D175C5F-AE24-4333-8795-332B3BDA8FE3',
+  token_type: 'bearer',
+  expires_in: '240000'
 };
 
 const userInfo = {
-  "user": {
-    "id": 1,
-    "email": "foo@example.com"
+  user: {
+    id: 1,
+    email: 'foo@example.com'
   },
-  "companies": [{
-    "id": 1,
-    "name": "MyCo",
-    "slug": "my-co"
-  }]
+  companies: [
+    {
+      id: 1,
+      name: 'MyCo',
+      slug: 'my-co'
+    }
+  ]
 };
 
 const codeQuery = qs.stringify({ code: 'authorization code' });
@@ -104,7 +106,7 @@ function openPrintedLink(ui, td) {
         request.get(loginUrl, function(error, response, body) {
           error ? reject(error) : resolve({ response, body });
         });
-      } catch(e) {
+      } catch (e) {
         reject(e);
       }
     });
@@ -154,11 +156,7 @@ describe('Acceptance: movable login', function() {
       })
       .reply(function(uri, requestBody) {
         const query = url.parse(uri, true).query;
-        return [
-          302,
-          '',
-          { Location: `${query.redirect_uri}?${codeQuery}` }
-        ];
+        return [302, '', { Location: `${query.redirect_uri}?${codeQuery}` }];
       })
       .post('/oauth/token', authTokenQuery)
       .reply(200, accessToken);
@@ -183,13 +181,17 @@ describe('Acceptance: movable login', function() {
   it('fails when webserver already running on login port', async function() {
     const server = await startExistingWebserver();
 
-    await command.run(options, []).then(result => {
-       throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
-     }).catch(e => {
-       expect(e.message).to.match(/listen EADDRINUSE/);
-     }).finally(() => {
-       return server.close();
-     });
+    await command
+      .run(options, [])
+      .then(result => {
+        throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
+      })
+      .catch(e => {
+        expect(e.message).to.match(/listen EADDRINUSE/);
+      })
+      .finally(() => {
+        return server.close();
+      });
   });
 
   it('fails when user rejects oauth confirmation', async function() {
@@ -203,11 +205,7 @@ describe('Acceptance: movable login', function() {
       })
       .reply(function(uri, requestBody) {
         const query = url.parse(uri, true).query;
-        return [
-          302,
-          '',
-          { Location: `${query.redirect_uri}?error=access_denied` }
-        ];
+        return [302, '', { Location: `${query.redirect_uri}?error=access_denied` }];
       });
 
     openPrintedLink(ui, td).then((response, body) => {
@@ -215,10 +213,13 @@ describe('Acceptance: movable login', function() {
       expect(body).to.match(/Failed/);
     });
 
-    await command.run(options, []).then(result => {
-      throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
-    }).catch(e => {
-      expect(e.message).to.eq('User rejected oAuth request');
-    });
+    await command
+      .run(options, [])
+      .then(result => {
+        throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
+      })
+      .catch(e => {
+        expect(e.message).to.eq('User rejected oAuth request');
+      });
   });
 });
