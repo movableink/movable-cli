@@ -15,6 +15,7 @@ const commandOptions = require('../factories/command-options');
 const DeployCommand = require('../../lib/commands/deploy');
 const DeployTask = require('../../lib/tasks/deploy');
 const tmp = require('ember-cli-internal-test-helpers/lib/helpers/tmp');
+const { accessToken, userInfo } = require('../helpers/user-info');
 
 // Why have same path for every test, rather than creating random
 // temp directories? Because the Project model will return a singleton
@@ -32,38 +33,6 @@ const oauthConfig = {
   },
   callbackURL: 'http://localhost:14942/oauth/callback',
   scope: 'mdk'
-};
-
-const accessToken = {
-  access_token: '5683E74C-7514-4426-B64F-CF0C24223F69',
-  refresh_token: '8D175C5F-AE24-4333-8795-332B3BDA8FE3',
-  token_type: 'bearer',
-  expires_in: '240000'
-};
-
-// Data for ~/.mdk
-const userInfo = {
-  auth: {
-    token: {
-      access_token: accessToken.access_token,
-      refresh_token: accessToken.refresh_token,
-      token_type: accessToken.token_type,
-      expires_in: accessToken.expires_in,
-      created_at: new Date().getTime(),
-      expires_at: new Date(new Date().getTime() + parseInt(accessToken.expires_in))
-    }
-  },
-  user: {
-    id: 1,
-    email: 'foo@example.com',
-    company_id: 1,
-    features: {}
-  },
-  company: {
-    id: 1,
-    name: 'MyCo',
-    slug: 'my-co'
-  }
 };
 
 const userResponse = Object.assign({}, userInfo, { companies: [userInfo.company] });
