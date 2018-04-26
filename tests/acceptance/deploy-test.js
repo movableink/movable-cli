@@ -91,7 +91,13 @@ describe('Acceptance: movable deploy', function() {
     await userConfig.append(userInfo);
     await command.run(options, ['development']);
 
-    expect(await gitServer.files()).to.contain('README.md');
+    // output looks like:
+    // [new tag]         deploy-development-2018-4-26-17-44-44 -> deploy-development-2018-4-26-17-44-44
+    expect(ui.errors).to.match(/new tag/);
+    const tag = ui.errors.replace(/\n/g, '').match(/([^\s]+)$/)[0];
+    expect(tag).to.match(/^deploy-development-/);
+
+    expect(await gitServer.files(tag)).to.contain('README.md');
   });
 
   it('fails deploys to nonexistent environment', async function() {
@@ -114,8 +120,11 @@ describe('Acceptance: movable deploy', function() {
     ]);
 
     await command.run(options, ['development']);
+    expect(ui.errors).to.match(/new tag/);
+    const tag = ui.errors.replace(/\n/g, '').match(/([^\s]+)$/)[0];
+    expect(tag).to.match(/^deploy-development-/);
 
-    expect(await gitServer.files()).to.contain('README.md');
+    expect(await gitServer.files(tag)).to.contain('README.md');
   });
 
   it('deploys successfully when expired remote exists and user is authenticated', async function() {
@@ -129,7 +138,11 @@ describe('Acceptance: movable deploy', function() {
 
     await command.run(options, ['development']);
 
-    expect(await gitServer.files()).to.contain('README.md');
+    expect(ui.errors).to.match(/new tag/);
+    const tag = ui.errors.replace(/\n/g, '').match(/([^\s]+)$/)[0];
+    expect(tag).to.match(/^deploy-development-/);
+
+    expect(await gitServer.files(tag)).to.contain('README.md');
   });
 
   it('fails when expired remote exists and user is not authenticated', async function() {
@@ -167,7 +180,7 @@ describe('Acceptance: movable deploy', function() {
         throw new Error('Promise was unexpectedly fulfilled. Result: ' + result);
       })
       .catch(e => {
-        expect(e.message).to.match(/Command failed: git push --force deploy-development/);
+        expect(e.message).to.match(/Command failed: git push deploy-development deploy-development-\d+/);
         expect(e.message).to.match(/not found/);
       });
   });

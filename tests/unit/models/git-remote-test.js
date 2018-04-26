@@ -97,12 +97,22 @@ describe('models/git-remote', function() {
     });
   });
 
+  describe('#createTag', function() {
+    it('creates a tag', async function() {
+      const gitArgs = ['tag', td.matchers.contains(/^deploy-development-.*/)];
+      td.when(remote.git(...gitArgs)).thenResolve('deploy-development-2018-05-02-10-04');
+
+      const result = await remote.createTag();
+      expect(result).to.match(/^deploy-development-/);
+    });
+  });
+
   describe('#push', function() {
-    it('force-pushes to the remote', async function() {
-      const gitArgs = ['push', '--force', 'deploy-development', 'HEAD:development'];
+    it('pushes tag to the remote', async function() {
+      const gitArgs = ['push', 'deploy-development', 'deploy-development-2018-05-02-10-04'];
       td.when(remote.git(...gitArgs)).thenResolve('success');
 
-      const result = await remote.push();
+      const result = await remote.push('deploy-development-2018-05-02-10-04');
       expect(result).to.eq('success');
     });
   });

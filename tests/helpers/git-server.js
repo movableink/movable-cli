@@ -79,8 +79,8 @@ class GitServer {
     return execa('git', ['init', '--bare', this.gitDir]);
   }
 
-  async files() {
-    const list = await execa.stdout('git', ['ls-tree', '--name-only', 'development'], {
+  async files(ref) {
+    const list = await execa.stdout('git', ['ls-tree', '--name-only', ref], {
       cwd: this.gitDir
     });
     return list.split("\n");
