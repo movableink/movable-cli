@@ -52,6 +52,14 @@ describe('models/git-remote', function() {
       ];
       td.when(remote.git(...gitArgs)).thenResolve('it worked');
 
+      const notesArgs = [
+        'config',
+        '--add',
+        'remote.deploy-development.fetch',
+        '+refs/notes/*:refs/notes/*'
+      ];
+      td.when(remote.git(...notesArgs)).thenResolve('it worked');
+
       return remote.add().then(function(result) {
         expect(result).to.eq('it worked');
       });
