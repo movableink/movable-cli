@@ -98,6 +98,8 @@ describe('Acceptance: movable deploy', function() {
     expect(tag).to.match(/^deploy-development-/);
 
     expect(await gitServer.files(tag)).to.contain('README.md');
+    await execa('git', ['fetch', 'deploy-development']);
+    expect(await execa.stdout('git', ['remote', 'show', 'deploy-development'])).to.match(/refs\/notes\/commits tracked/);
   });
 
   it('fails deploys to nonexistent environment', async function() {
