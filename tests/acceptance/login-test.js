@@ -101,9 +101,9 @@ function openPrintedLink(ui, td) {
     td.when(ui.writeLine(td.matchers.contains('Open this url'))).thenDo(function() {
       try {
         const msg = arguments[0];
-        const loginUrl = msg.match(/\u001b\[4m\u001b\[34m(.*?)\u001b\[39m/)[1];
+        const loginURL = msg.match(/\u001b\[4m\u001b\[34m(.*?)\u001b\[39m/)[1];
 
-        request.get(loginUrl, function(error, response, body) {
+        request.get(loginURL, function(error, response, body) {
           error ? reject(error) : resolve({ response, body });
         });
       } catch (e) {
@@ -132,7 +132,7 @@ describe('Acceptance: movable login', function() {
         isEmberCLIProject: () => false
       },
       oauth: oauthConfig,
-      dashboardUrl: 'https://api-server.org',
+      dashboardURL: 'https://api-server.org',
       userConfig
     });
 

@@ -38,7 +38,7 @@ describe('models/api-client-test', function() {
     apiClient = new ApiClient({
       oauth: oauthConfig,
       userConfig: new MockConfig(),
-      dashboardUrl: 'https://api-server.org'
+      dashboardURL: 'https://api-server.org'
     });
   });
 
@@ -82,10 +82,6 @@ describe('models/api-client-test', function() {
       }).catch(e => {
         expect(e.message).to.eq('failure');
       });
-    });
-
-    it('updates the user config with new access token', function() {
-
     });
   });
 

@@ -68,9 +68,9 @@ describe('Acceptance: movable deploy', function() {
         isEmberCLIProject: () => true
       },
       oauth: oauthConfig,
-      dashboardUrl: 'https://api-server.org',
+      dashboardURL: 'https://api-server.org',
       userConfig,
-      remoteUrl: 'http://localhost:14902'
+      remoteURL: 'http://localhost:14902'
     });
 
     const userStub = nock('https://api-server.org')
