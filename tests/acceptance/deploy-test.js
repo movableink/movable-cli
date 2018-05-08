@@ -1,7 +1,6 @@
 const MockUI = require('console-ui/mock');
 const os = require('os');
 const path = require('path');
-const fs = require('fs');
 const expect = require('chai').expect;
 const nock = require('nock');
 const temp = require('temp');
@@ -21,7 +20,7 @@ const { accessToken, userInfo } = require('../helpers/user-info');
 // temp directories? Because the Project model will return a singleton
 // so there is no way to instantiate a second Project with a different
 // directory.
-let tmpPath = path.join(process.cwd(), 'tmp', 'deploy-test');
+let tmpPath = path.join(process.cwd(), 'tmp', 'deploy-test', 'foo');
 
 const oauthConfig = {
   client: {
@@ -99,7 +98,8 @@ describe('Acceptance: movable deploy', function() {
 
     expect(await gitServer.files(tag)).to.contain('README.md');
     await execa('git', ['fetch', 'deploy-development']);
-    expect(await execa.stdout('git', ['config', '--get', 'remote.deploy-development.fetch'])).to.eq('+refs/notes/*:refs/notes/*');
+    expect(await execa.stdout('git', ['config', '--get', 'remote.deploy-development.fetch']))
+      .to.eq('+refs/notes/*:refs/notes/*');
   });
 
   it('fails deploys to nonexistent environment', async function() {
@@ -111,6 +111,23 @@ describe('Acceptance: movable deploy', function() {
       .catch(e => {
         expect(e.message).to.match(/Usage: movable deploy/);
       });
+  });
+
+  it('deploys an app in a monorepo', async function() {
+    await execa('rm', ['manifest.yml', 'package.json']);
+    await execa('mkdir', ['-p', 'apps/countdown']);
+    process.chdir(path.join(tmpPath, 'apps', 'countdown'));
+
+    await movable(['init', '--name', 'neverseen', '--skip-npm'], { skipGit: true });
+    await execa('git', ['commit', '-am', 'new monorepo app']);
+
+    await userConfig.append(userInfo);
+    await command.run(options, ['development']);
+
+    // output looks like:
+    // [new tag]         deploy-development/countdown/-2018-4-26-17-44-44 -> deploy-development/countdown/-2018-4-26-17-44-44
+    expect(ui.errors).to.match(/new tag/);
+    expect(ui.errors).to.match(/deploy-development\/countdown\/-/);
   });
 
   it('deploys successfully when valid remote already exists', async function() {
