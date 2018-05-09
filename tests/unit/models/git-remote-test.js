@@ -115,6 +115,34 @@ describe('models/git-remote', function() {
       const result = await remote.createTag();
       expect(result).to.match(/^deploy-development-/);
     });
+
+    it('creates a tag with an app name', async function() {
+      const gitArgs = ['tag', '-a', '-m',
+                       td.matchers.contains(/^deploy-development\/my-app\/-.*/),
+                       td.matchers.contains(/^deploy-development\/my-app\/-.*/)];
+      td.when(remote.git(...gitArgs)).thenResolve('deploy-development\/my-app\/-2018-05-02-10-04');
+
+      const result = await remote.createTag('my-app');
+      expect(result).to.match(/^deploy-development\/my-app\/-/);
+    });
+  });
+
+  describe('#appNameForCurrentDir', function() {
+    it('returns a monorepo app in a monorepo', async function() {
+      const gitArgs = ['rev-parse', '--show-prefix'];
+      td.when(remote.git(...gitArgs)).thenResolve({ stdout: 'apps/my-app/bin\n' });
+
+      const result = await remote.appNameForCurrentDir();
+      expect(result).to.eq('my-app');
+    });
+
+    it('returns null when not in a monorepo', async function() {
+      const gitArgs = ['rev-parse', '--show-prefix'];
+      td.when(remote.git(...gitArgs)).thenResolve({ stdout: 'bin\n' });
+
+      const result = await remote.appNameForCurrentDir();
+      expect(result).to.eq(null);
+    });
   });
 
   describe('#push', function() {
