@@ -21,12 +21,7 @@
     "studio-app": "^1.5.0"
   },
   "devDependencies": {
-    "karma": "^1.7.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-html2js-preprocessor": "^1.1.0",
-    "karma-qunit": "^1.2.1",
-    "karma-rollup-preprocessor": "https://github.com/movableink/karma-rollup-preprocessor#multi-config",
-    "qunit": "^1.0.0",
+    "qunit": "^2.6.1",
     "rollup": "^0.51.3",
     "rollup-plugin-serve": "0.4.2",
     "rollup-split-index": "https://github.com/movableink/rollup-split-index.git#e4d355d"
