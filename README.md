@@ -17,6 +17,10 @@ This utility takes care of the following:
 * Serving those apps from a webserver (`movable serve`)
 * Updating an app to the latest blueprint (`movable init`)
 
+## MDK Development
+
+*Everything below this point is about making modifications to the MDK itself. If you just want to use the MDK to build apps, you can [find more documentation on the wiki](https://github.com/movableink/movable-cli/wiki)*.
+
 ## Testing
 
 Run all of the tests:
