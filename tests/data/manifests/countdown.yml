@@ -1,0 +1,107 @@
+---
+name: Countdown Timer (beta)
+authors:
+  - Movable Ink <dev@movableink.com>
+icon_v2: countdown-timer
+description: Build a Countdown Timer with a WYSIWYG interface
+documentation: https://support.movableink.com/hc/en-us/articles/360005409534
+category: 'context: time'
+javascript_file: dist/index.js
+html_file: app/index.html
+width: 400
+height: 300
+query_params:
+  mi_date: '[mi_date]'
+  mi_now: '[mi_now]'
+  mi_interval: '[mi_interval]'
+expose_advanced_options: true
+fields:
+  - name: filter_bad_words
+    label: Filter Bad Words
+    type: checkbox
+    value: false
+  - name: countdown_to
+    label: Countdown to Time
+    type: datetime
+    value: +3d
+studio_options:
+  framework_version: 0.1
+  prohibit_custom_params: true
+  preview_fields:
+    - date-time
+  tools: []
+  property_groups:
+    - name: countdown
+      label: Countdown Timer
+      description: Countdown Timer data
+      properties:
+        - name: countdown.days
+          label: Days Remaining
+          context_options: &countdown_context_options
+            - name: padNumbers
+              type: select
+              description: Show Leading "0"
+              options:
+                - value: false
+                  label: 'No'
+                - value: true
+                  label: 'Yes'
+            - &is_max_prop
+              name: isMaxProp
+              type: select
+              description: Is Largest Prop?
+              options:
+                - value: false
+                  label: 'No'
+                - value: true
+                  label: 'Yes'
+        - name: countdown.hours
+          label: Hours Remaining
+          context_options: *countdown_context_options
+        - name: countdown.minutes
+          label: Minutes Remaining
+          context_options: *countdown_context_options
+        - name: countdown.seconds
+          label: Seconds Remaining
+          context_options: *countdown_context_options
+        - name: countdown.daysDigit
+          label: Days Remaining Digit
+          context_options:
+            - *is_max_prop
+            - &digit_options
+              name: digitIndex
+              description: Digit to use
+              type: select
+              options:
+                - value: 0
+                  label: Ones Digit
+                - value: 1
+                  label: Tens Digit
+                - value: 2
+                  label: Hundreds Digit
+                - value: 3
+                  label: Thousands Digit
+        - name: countdown.hoursDigit
+          label: Hours Remaining Digit
+          context_options:
+            - *is_max_prop
+            - *digit_options
+        - name: countdown.minutesDigit
+          label: Minutes Remaining Digit
+          context_options:
+            - *is_max_prop
+            - *digit_options
+        - name: countdown.secondsDigit
+          label: Seconds Remaining Digit
+          context_options:
+            - *is_max_prop
+            - *digit_options
+capture_options:
+  timeout: 8s
+  cache_ttl: 5s
+  animation:
+    looping: true
+    interval: 1000ms
+    length: 30s
+    color_palette: global
+    step_function: requestCapturamaFrame();
