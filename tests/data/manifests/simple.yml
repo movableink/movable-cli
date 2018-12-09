@@ -1,0 +1,13 @@
+name: Simple
+authors:
+  - Author Name <foo@example.com>
+html_file: app/index.html
+javascript_file: dist/index.js
+css_file: style.css
+description: Does not do much
+documentation: https://support.movableink.com/
+category: 'data: rendering'
+icon_v2: weather
+width: 250
+height: 200
+fields: []
