@@ -130,6 +130,7 @@ describe('Acceptance: movable new', function() {
     'Running movable new inside of movable-cli project automatically skips git',
     co.wrap(function*() {
       yield movable(['new', 'foo', '--skip-npm', '--skip-bower']);
+      fs.writeFileSync('./package.json', '{}');
 
       fs.mkdirSync('bar');
       process.chdir('bar');
