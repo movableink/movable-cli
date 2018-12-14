@@ -6,6 +6,7 @@ const tmp = require('ember-cli-internal-test-helpers/lib/helpers/tmp');
 const Promise = require('rsvp');
 const fs = require('fs-extra');
 const copy = Promise.denodeify(fs.copy);
+const express = require('express');
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -13,7 +14,13 @@ const { expect } = chai;
 let rootPath = process.cwd();
 let tmpPath = 'tmp';
 
-const app = server(path.resolve(tmpPath), 9999);
+const app = express();
+server(app, {
+  project: {
+    root: path.resolve('tmp')
+  },
+  liveReloadPort: 9999
+});
 
 async function setupManifest(name) {
   await copy(path.join(rootPath, 'tests', 'data', 'style.css'),
