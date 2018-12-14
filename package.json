@@ -33,7 +33,7 @@
   "dependencies": {
     "@movable/broccoli-rollup": "^2.2.0",
     "@movable/socketproxy": "^0.2.0",
-    "ember-cli": "3.5.1",
+    "ember-cli": "3.6.0",
     "formidable": "^1.2.1",
     "html-minifier": "3.5.21",
     "http-proxy-middleware": "0.19.1",
