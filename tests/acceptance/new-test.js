@@ -92,7 +92,7 @@ describe('Acceptance: movable new', function() {
   it(
     'movable new with app name creates new directory and has a dasherized package name',
     co.wrap(function*() {
-      yield movable(['new', 'FooApp', '--skip-npm', '--skip-bower', '--skip-git']);
+      yield movable(['new', 'FooApp', '--skip-npm', '--skip-git']);
 
       expect(dir('FooApp')).to.not.exist;
       expect(file('package.json')).to.exist;
@@ -107,7 +107,7 @@ describe('Acceptance: movable new', function() {
     co.wrap(function*() {
       fs.mkdirsSync('bar');
 
-      yield movable(['new', 'foo', '--skip-npm', '--skip-bower', '--skip-git', '--directory=bar']);
+      yield movable(['new', 'foo', '--skip-npm', '--skip-git', '--directory=bar']);
     })
   );
 
@@ -118,7 +118,7 @@ describe('Acceptance: movable new', function() {
       fs.writeFileSync(path.join('bar', 'package.json'), '{}');
 
       let error = yield expect(
-        movable(['new', 'foo', '--skip-npm', '--skip-bower', '--skip-git', '--directory=bar'])
+        movable(['new', 'foo', '--skip-npm', '--skip-git', '--directory=bar'])
       ).to.be.rejected;
 
       expect(error.name).to.equal('SilentError');
@@ -208,7 +208,7 @@ describe('Acceptance: movable new', function() {
     co.wrap(function*() {
       let workdir = process.cwd();
 
-      yield movable(['new', 'foo', '--skip-npm', '--skip-bower', '--skip-git', '--directory=bar']);
+      yield movable(['new', 'foo', '--skip-npm', '--skip-git', '--directory=bar']);
 
       expect(dir(path.join(workdir, 'foo'))).to.not.exist;
       expect(dir(path.join(workdir, 'bar'))).to.exist;
