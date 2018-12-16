@@ -7,28 +7,26 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "node_modules/.bin/rollup -c rollup.config.js",
-    "start": "SERVE=true node_modules/.bin/rollup -c rollup.config.js",
-    "test": "node_modules/.bin/karma start --single-run --browsers ChromeHeadless"
+    "build": "movable build",
+    "start": "movable serve",
+    "test": "movable test"
   },
   "repository": "",
   "author": "",
   "license": "SEE LICENSE IN LICENSE.md",
   "homepage": "",
   "dependencies": {
-    "cropduster": "^6.0.0",
-    "jquery": "^3.2.1",
-    "studio-app": "^1.5.0"
+    "@movable/cli": "0.19.0"
   },
   "devDependencies": {
-    "karma": "^1.7.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-html2js-preprocessor": "^1.1.0",
-    "karma-qunit": "^1.2.1",
-    "karma-rollup-preprocessor": "https://github.com/movableink/karma-rollup-preprocessor#multi-config",
-    "qunit": "^1.0.0",
-    "rollup": "^0.51.3",
-    "rollup-plugin-serve": "0.4.2",
-    "rollup-split-index": "https://github.com/movableink/rollup-split-index.git#e4d355d"
+    "@movable/rollup-plugin-html": "^0.3.0",
+    "cropduster": "^6.0.0",
+    "jquery": "^3.2.1",
+    "qunit": "^2.8.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-split-index": "^1.0.1",
+    "studio-app": "^1.7.2"
   }
 }

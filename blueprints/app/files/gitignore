@@ -1,6 +1,7 @@
 node_modules
 .idea
 npm-debug.log
+yarn-error.log
 .DS_Store
 /dist
 /tmp

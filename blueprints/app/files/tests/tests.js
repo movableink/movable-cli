@@ -1,3 +1,7 @@
+/* global QUnit */
+import CD from 'cropduster';
+import { wysiwygContent } from './helper';
+
 const container = document.createElement('div');
 container.classNames = 'container';
 document.body.appendChild(container);

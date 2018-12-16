@@ -1,10 +1,12 @@
 const url = require('url');
+const path = require('path');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../lib/server/index');
 const Config = require('../../lib/models/config');
 const defaultConfig = require('../../lib/defaults');
 const nock = require('nock');
+const express = require('express');
 
 defaultConfig.userConfigPath = './tmp/.mdk';
 defaultConfig.dashboardURL = 'http://dashboard.invalid';
@@ -32,7 +34,13 @@ const accessToken = {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const app = server('tmp', 9999);
+const app = express();
+server(app, {
+  project: {
+    root: path.resolve('tmp')
+  },
+  liveReloadPort: 9999
+});
 
 describe('Acceptance: server/font-api', function() {
   beforeEach(async function() {
