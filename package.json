@@ -31,7 +31,7 @@
     "movable": "./bin/movable"
   },
   "dependencies": {
-    "@movable/broccoli-rollup": "^2.2.0",
+    "@movable/broccoli-rollup": "^2.3.0",
     "@movable/socketproxy": "^0.2.0",
     "ember-cli": "3.6.0",
     "formidable": "^1.2.1",

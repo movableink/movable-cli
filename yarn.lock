@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@movable/broccoli-rollup@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@movable/broccoli-rollup/-/broccoli-rollup-2.2.0.tgz#426ac35543b8095241f5b76da95cdd69ab5fcdf0"
-  integrity sha512-/yUQIRBvO0Uc4B4IytBE0w7tmwxpjH9JT75KkbFHm5+xRnO0p4drCDPBLskM2HXS5zgI18VFdzDmO2UcNAHJkw==
+"@movable/broccoli-rollup@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@movable/broccoli-rollup/-/broccoli-rollup-2.3.0.tgz#a83e94762ae29d163e0445c2d6f607bd0b0b2fab"
+  integrity sha512-ybjJ+yod30VhgzTTAst6MmyYXS4Yi9+tNtoAfR4bxhXuu5SCywRT4hDhR5fFY0QHZPkNIS34Yb3fD25wNFvV7Q==
   dependencies:
     "@types/node" "*"
     amd-name-resolver "^1.2.1"
