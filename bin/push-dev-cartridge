@@ -51,15 +51,15 @@ sha_to_upload = [email, sha_to_upload].join('-')
 s3_uri = S3_PROTOCOL + [s3_bucket_name, project_name, sha_to_upload].join('/')
 
 begin
-  unless is_cartridge?
-    puts "This project is not a cartridge (no manifest.yml found), skipping..."
-    exit
-  end
-
   if should_package?('.')
     puts "Building project"
     puts `yarn`
     puts `yarn run build`
+  end
+
+  unless is_cartridge?
+    puts "This project is not a cartridge (no manifest.yml found), skipping..."
+    exit
   end
 
   S3CMD_COMMAND = "s3cmd put -r -P --guess-mime-type --exclude=node_modules/**/* --exclude=.git/**/* * #{s3_uri}/"
