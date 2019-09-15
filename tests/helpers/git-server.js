@@ -3,6 +3,7 @@ const express = require('express');
 const execa = require('execa');
 const fs = require('fs-extra');
 const RSVP = require('rsvp');
+const { Buffer } = require('buffer');
 const remove = RSVP.denodeify(fs.remove);
 const mkdir = RSVP.denodeify(fs.mkdir);
 
@@ -22,7 +23,7 @@ class GitServer {
       }
 
       const [ basic, encoded ] = auth.split(' ');
-      const decoded = new Buffer(encoded, 'base64').toString();
+      const decoded = Buffer.from(encoded, 'base64').toString();
       const [ username, _password ] = decoded.split(':');
 
       if(username === requiredToken) {
