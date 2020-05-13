@@ -1,9 +1,9 @@
 'use strict';
-const path = require('path');
 const { execFile } = require('child_process');
-const pkg = require('../../package.json');
-
-const cliPath = path.resolve(__dirname, '../../', pkg.bin['movable-beta']);
+const assert = require('assert');
+const rootPath = require('app-root-path');
+const pkg = require(rootPath.resolve(`/package.json`));
+const cliPath = rootPath.resolve(pkg.bin['movable-beta']);
 
 describe('Movable Command', () => {
   it('Gets version number', async () => {
@@ -14,6 +14,6 @@ describe('Movable Command', () => {
     });
 
     const expected = pkg.version;
-    expect(data).toBe(expected);
+    assert.equal(data, expected);
   });
 });

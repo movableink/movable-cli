@@ -1,55 +1,52 @@
 'use strict';
 const inquirer = require('inquirer');
+const sinon = require('sinon');
+
 const Router = require('../lib/router');
 const yeoman = require('yeoman-environment');
 
 const env = yeoman.createEnv([], { console: console });
 const Home = require('../lib/routes/home');
 
-jest.mock('inquirer');
-
 describe('Home Route', () => {
   beforeEach(() => {
     this.router = new Router(env);
     this.router.registerRoute('home', Home);
-    this.generateRoute = jest.fn();
+    this.generateRoute = sinon.spy();
     this.router.registerRoute('generate', this.generateRoute);
-    this.helpRoute = jest.fn();
+    this.helpRoute = sinon.spy();
     this.router.registerRoute('help', this.helpRoute);
-    this.exitRoute = jest.fn();
+    this.exitRoute = sinon.spy();
     this.router.registerRoute('exit', this.exitRoute);
   });
 
-  it('Allows going to the generate route', () => {
+  it('Allows going to the generate route', async () => {
     inquirer.prompt = () => Promise.resolve({ whatNext: 'generate' });
 
-    this.router.navigate('home').then(() => {
-      expect(this.generateRoute).toHaveBeenCalledTimes(1);
-    });
+    await this.router.navigate('home');
+    sinon.assert.calledOnce(this.generateRoute);
   });
 
-  it('Allows going to the help route', () => {
+  it('Allows going to the help route', async () => {
     inquirer.prompt = () => Promise.resolve({ whatNext: 'help' });
 
-    this.router.navigate('home').then(() => {
-      expect(this.helpRoute).toHaveBeenCalledTimes(1);
-    });
+    await this.router.navigate('home');
+    sinon.assert.calledOnce(this.helpRoute);
   });
 
-  it('Allows going to the exit route', () => {
+  it('Allows going to the exit route', async () => {
     inquirer.prompt = () => Promise.resolve({ whatNext: 'exit' });
 
-    this.router.navigate('home').then(() => {
-      expect(this.exitRoute).toHaveBeenCalledTimes(1);
-    });
+    await this.router.navigate('home');
+    sinon.assert.calledOnce(this.exitRoute);
   });
 
-  it('Fails due to unknown route', () => {
-    console.log = jest.fn(); // silence console logs
+  it('Fails due to unknown route', async () => {
+    sinon.stub(console, 'log'); // silence console.log
     inquirer.prompt = () => Promise.resolve({ whatNext: 'randomRoute' });
-
-    this.router.navigate('home').then(() => {
-      expect(jest.fn()).toBeCalledTimes(0);
-    });
+    this.randomRoute = sinon.spy();
+    await this.router.navigate('home');
+    console.log.restore(); // restore console.log to allow for mocha test
+    sinon.assert.notCalled(this.randomRoute);
   });
 });
