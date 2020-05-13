@@ -30,10 +30,10 @@ const cli = commands.map((command) => {
   return { opts, args };
 });
 
-const firstCmd = cli[0] || { opts: {}, args: {} };
-const cmd = firstCmd.args[0] || 'home';
+const optsArgs = cli[0] || { opts: {}, args: {} };
+const cmd = optsArgs.args[0] || 'home';
 
-env.firstCmd = firstCmd;
+env.optsArgs = optsArgs;
 env.cmd = cmd;
 
 function init() {
@@ -46,13 +46,13 @@ function init() {
 
   env.on('error', (err) => {
     console.error('Error', process.argv.slice(2).join(' '), '\n');
-    console.error(firstCmd.opts.debug ? err.stack : err.message);
+    console.error(optsArgs.opts.debug ? err.stack : err.message);
     process.exit(err.code || 1);
   });
 
   setRoutes();
 
-  if (firstCmd.opts.help) {
+  if (optsArgs.opts.help) {
     router.navigate('help');
     return;
   }

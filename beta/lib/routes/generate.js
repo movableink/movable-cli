@@ -2,10 +2,9 @@
 const inquirer = require('inquirer');
 const { checkGeneratorVersion } = require('../utils');
 
-const Generate = async (app) => {
-  const { env = {} } = app;
-  let args = env.firstCmd ? env.firstCmd.args : [];
-  let opts = env.firstCmd ? env.firstCmd.opts : {};
+const Generate = async ({ env = {} }) => {
+  let args = env.optsArgs ? env.optsArgs.args : [];
+  let opts = env.optsArgs ? env.optsArgs.opts : {};
 
   /**
    * Check to see if blueprint arg is passed to us:

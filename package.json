@@ -21,7 +21,7 @@
   "private": false,
   "trackingCode": "UA-13244752-7",
   "engines": {
-    "node": ">= 8"
+    "node": ">= 12"
   },
   "keywords": [
     "movableink",
