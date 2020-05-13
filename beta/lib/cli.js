@@ -4,7 +4,8 @@
 const list = require('cli-list');
 const meow = require('meow');
 const chalk = require('chalk');
-const pkg = require('../../package.json');
+const rootPath = require('app-root-path');
+const pkg = require(rootPath.resolve('package.json'));
 const yeoman = require('yeoman-environment');
 const Router = require('./router');
 

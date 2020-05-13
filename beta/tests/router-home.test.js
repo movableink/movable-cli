@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const Router = require('../lib/router');
 const yeoman = require('yeoman-environment');
 
-const env = yeoman.createEnv([], { console: console });
+const env = yeoman.createEnv();
 const Home = require('../lib/routes/home');
 
 describe('Home Route', () => {

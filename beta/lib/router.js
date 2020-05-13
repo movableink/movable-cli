@@ -1,5 +1,6 @@
 'use strict';
 const Configstore = require('configstore');
+const rootPath = require('app-root-path');
 const chalk = require('chalk');
 
 /**
@@ -10,7 +11,7 @@ const chalk = require('chalk');
  */
 class Router {
   constructor(env, conf) {
-    const pkg = require('../../package.json');
+    const pkg = require(rootPath.resolve('package.json'));
     this.routes = {};
     this.env = env;
     this.conf =
@@ -31,9 +32,7 @@ class Router {
     }
 
     console.log(
-      `${chalk.green(
-        `No command called ${name}. Use the following to list available options:`
-      )}`
+      `${chalk.green(`No command called ${name}. Use the following to list available options:`)}`
     );
     console.log('');
     console.log(`  $ movable --help `);
