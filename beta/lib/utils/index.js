@@ -14,8 +14,8 @@ async function checkGeneratorVersion(pkgName = null) {
 
   // if no pkgName then we assume this is for the CLI
   if (pkgName) {
-    const packagePath = path.join(rootPath.resolve(`/node_modules/${pkgName}/package.json`));
-    generatorPkg = require(packagePath);
+    const packagePath = resolvePackageIfExists(pkgName);
+    generatorPkg = packagePath ? require(packagePath) : pkg;
   }
 
   const { name, version: installedVersion } = generatorPkg;
@@ -39,34 +39,49 @@ async function checkGeneratorVersion(pkgName = null) {
  * Display CLI options via --help
  */
 function helpText() {
-  console.log(`${chalk.green('Usage:')} movable [command] [options]
+  console.log(`${chalk.green('Usage:')} movable [command] [options]`);
+  console.log('');
+  console.log(`${chalk.green('Command options:')}`);
+  console.log('  generate');
+  console.log('');
+  console.log(`${chalk.green('General options')}:`);
+  console.log(`  --help         # Print this info and generator's options and usage`);
+  console.log(`  --version      # Print version`);
+  console.log('');
+  console.log(`${chalk.magenta('generate')} options:`);
+  console.log('');
+  console.log(`  ${chalk.green('Install a template')}:`);
+  console.log('');
+  console.log(`    $ movable generate @movable-internal/remote-upload-blueprint`);
+  console.log(``);
+  console.log(`  ${chalk.green('Run local generators')}:`);
+  console.log(``);
+  console.log(`    Additionally, you can also run local generators without installing via npm.`);
+  console.log(``);
+  console.log(
+    `    $ movable generate /Users/michaelnguygen/Sites/sd-packages/blueprints/remote-upload`
+  );
+  console.log(`  `);
+  console.log(`  ${chalk.green('Optional argument')}:`);
+  console.log(``);
+  console.log(`    --name         # Name of app to skip name prompt`);
+}
 
-${chalk.green('Command options:')}
-  generate
-
-${chalk.green('General options')}:
-  --help         # Print this info and generator's options and usage
-  --version      # Print version
-
-${chalk.magenta('generate')} options:
-
-  ${chalk.green('Install a template')}:
-
-    $ movable generate @movable-internal/remote-upload-blueprint
-
-  ${chalk.green('Run local generators')}:
-
-    Additionally, you can also run local generators without installing via npm.
-
-    $ movable generate /Users/michaelnguygen/Sites/sd-packages/blueprints/remote-upload
-  
-  ${chalk.green('Optional argument')}:
-
-    --name         # Name of app to skip name prompt
-`);
+/**
+ * Check to see if package exists
+ *
+ * @param {*} package
+ */
+function resolvePackageIfExists(package) {
+  try {
+    return require.resolve(`${package}/package.json`);
+  } catch (e) {
+    return null;
+  }
 }
 
 module.exports = {
   helpText,
   checkGeneratorVersion,
+  resolvePackageIfExists,
 };

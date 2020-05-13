@@ -1,8 +1,7 @@
 'use strict';
 const readPkgUp = require('read-pkg-up');
 const chalk = require('chalk');
-const path = require('path');
-const fs = require('fs');
+const resolveCwd = require('resolve-cwd');
 const { helpText } = require('../utils');
 
 const Help = (app) => {
@@ -21,9 +20,9 @@ const Help = (app) => {
 
   const { blueprint = '', version = '@latest' } = movableInk;
 
-  const packagePath = path.join(cwd, `node_modules/${blueprint}/app/utils`);
+  const packagePath = resolveCwd.silent(`${blueprint}/app/utils/`);
 
-  if (fs.existsSync(packagePath)) {
+  if (packagePath) {
     const { helpText: packageHelpText } = require(packagePath);
     console.log('');
     console.log(`${chalk.green(`This project was built using:`)}`);
