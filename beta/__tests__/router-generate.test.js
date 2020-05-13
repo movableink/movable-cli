@@ -14,7 +14,7 @@ describe('Generate Route', () => {
     this.router.registerRoute('generate', Generate);
   });
 
-  it('Runs specified blueprint to generate', () => {
+  it('Runs specified blueprint to generate', async () => {
     inquirer.prompt = () =>
       Promise.resolve({
         blueprint: '@movable-internal/generator-remote-upload-blueprint',
@@ -23,9 +23,9 @@ describe('Generate Route', () => {
     env.register = jest.fn();
     env.run = jest.fn();
 
-    this.router.navigate('generate').then(() => {
-      expect(env.register).toHaveBeenCalledTimes(1);
-      expect(env.run).toHaveBeenCalledTimes(1);
-    });
+    await this.router.navigate('generate');
+
+    expect(env.register).toHaveBeenCalledTimes(1);
+    expect(env.run).toHaveBeenCalledTimes(1);
   });
 });

@@ -20,20 +20,12 @@ const Generate = require('./routes/generate');
 const Help = require('./routes/help');
 const Exit = require('./routes/exit');
 
-const gens = list(process.argv.slice(2));
+const commands = list(process.argv.slice(2));
 
-const cli = gens.map((gen) => {
-  const minicli = meow({ autoHelp: false, help: false, pkg, argv: gen });
+const cli = commands.map((command) => {
+  const minicli = meow({ autoHelp: false, help: false, pkg, argv: command });
   const opts = minicli.flags;
   const args = minicli.input;
-
-  // Add un-camelized options too, for legacy
-  // TODO: Remove some time in the future when generators have upgraded
-  for (const key of Object.keys(opts)) {
-    const legacyKey = key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-    opts[legacyKey] = opts[key];
-  }
-
   return { opts, args };
 });
 
@@ -45,14 +37,10 @@ env.cmd = cmd;
 
 function init() {
   console.log(
-    `${chalk.red(
-      '🤯 This is a beta command, so there could be unexpected results... 🤯'
-    )}`
+    `${chalk.red('🤯 This is a beta command, so there could be unexpected results... 🤯')}`
   );
   console.log('');
-  console.log(
-    `${chalk.red('                   😶 Use this at your own peril 😶')}`
-  );
+  console.log(`${chalk.red('                   😶 Use this at your own peril 😶')}`);
   console.log('');
 
   env.on('error', (err) => {
