@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const list = require('cli-list');
-const meow = require('meow');
+const minimist = require('minimist');
 const chalk = require('chalk');
 const rootPath = require('app-root-path');
 const pkg = require(rootPath.resolve('package.json'));
@@ -21,22 +20,25 @@ const Generate = require('./routes/generate');
 const Help = require('./routes/help');
 const Exit = require('./routes/exit');
 
-const commands = list(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2));
+const { _: args, ...opts } = argv;
 
-const cli = commands.map((command) => {
-  const minicli = meow({ autoHelp: false, help: false, pkg, argv: command });
-  const opts = minicli.flags;
-  const args = minicli.input;
-  return { opts, args };
-});
+const optsArgs = {
+  args,
+  opts,
+};
 
-const optsArgs = cli[0] || { opts: {}, args: {} };
 const cmd = optsArgs.args[0] || 'home';
 
 env.optsArgs = optsArgs;
 env.cmd = cmd;
 
 function init() {
+  if (optsArgs.opts.version) {
+    console.log(pkg.version);
+    return;
+  }
+
   console.log(
     `${chalk.red('🤯 This is a beta command, so there could be unexpected results... 🤯')}`
   );
