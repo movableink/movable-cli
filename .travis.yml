@@ -28,13 +28,12 @@ matrix:
   fast_finish: true
 
 env:
-  secure: 'NPnPer/Wtmdsyv70GGPYEmkDXIWftHAxPPYwRteMwcb74CgEqB200NSv6u8eENxmnXnHko3k9SmhYQkXi2Oz/bKu7xpRNqlDPOMvXWGJl9UIN56pnrKZ11iO3kPmW/OuQsDT3tjn/obQ/qfpW7foxqqq2krHuWwURaFjUvpQWsRS7BVreyXljrij5AnmFVYhqGaSq8drOBQ8Mu/MFZ6q/eu4DSRzQG+H4Awf2VPciZzF7ilMFedAVvzu5nd0pkEL17kEi4rgPIIexvim0wzaCoIABALnSzmZGIXANDKybVd15pdtQ4QwgrS5N3tsHP8BZ4zQhuAzMrVg9ATZTRW1p7RCfjP5g+sp9b1pGPoyVWQwtXNgQxYABr+stWNXmf6/VjhsmS5dMKyX1NLViV0ek71g6V2OXjyX8KSuCxHjxs76VifEVEB+wRAE/JO8+da3jNrmPS0PqxONPaxYw+OtEbJILghERQVdgCjxOJ1Hj3dBSKP49IFNCIc7kmWH5CAjKZcZSkID74Uz5d1JTqiaytU/Tf40/OtU500Mcv+Dk8s3D6x6aXpaU2YzXQ3RTl4+b512vOaeWbDEE0E1zqgSmtDZSMmH1ZnLd3pYE8GiyP4mibDrOEjICt01DI+4w9+sv3kwnR3PlQth111Y8GDkPAl4X1BeNH8i0hOKRGthK5A=' # TEST_TOKEN
+  secure: 'aqpUTlZMuBgVXNUCQtuiAsy0tQVAKZOiExiFnug33IfEguIhdw5WNLxcydYjpMX25MvlKIYuGYcnXbyLuTFJ/ZKue/2LrcyCu7SMkX39ugRyc6uXXGIVvgklrDCNTXiMMab90cREAvVdWQgPKw/4VIKsSPpi9E+chCW7FzwiMHzF6ZiFSx1ZK5/XbyjwPsP25hPwLruUUV2L6k7T/BrNSCPhBA2nBbEB2VItxwmRkGEnh3zeErAxzBWnNn5MyudBA0PIIgbW44J+jyJ2G929Gx2fr2k9YQURRBeBNtwLFo1gF9rAj98fJ9XCqPAJv5YNWYdIL47ctLkBo6/WrlyRN6jg+T7x2ExL11pUDud22xdSd6BrYcvmYapiaqFXzsV2mqO7eSWul17QreQ0WJt3t4mhMZ5hcTYylMZxtnJFqrw86Lv53LN2E1tt0BWwP2QIHt0L5Pmvdk5nBKY7c3Wz/CoVxpDMV99Jsr9wqUAW4Hca1jJ3t21dprzmeey+y/X514Egb1LwkOjt+kgZIDbrSMdjUhwravibZKCKCsZ3qD9HY1/4+Hy9v4JOP7ZRgptOjXrc1uGuiAmsyPRHTgWIU9ktWah7VNy9OZkOctKXJWNKv/mhMH6m6cuwvG9N9LT5NeIt1Et8RamLomES7HSIbq+UDD4r/S1imE87lCLng7U=' # PACKAGE_CLOUD_TOKEN
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
-  - echo "${TEST_TOKEN}"
-  # - curl -s "https://${SAMPLE_TOKEN}:@packagecloud.io/install/repositories/movableink/studio/script.node.sh" | force_npm=1 bash
+  - curl -s "https://${PACKAGE_CLOUD_TOKEN}:@packagecloud.io/install/repositories/movableink/studio/script.node.sh" | force_npm=1 bash
 
 script:
   - yarn run test
