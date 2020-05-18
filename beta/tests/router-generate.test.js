@@ -7,8 +7,6 @@ const Router = require('../lib/router');
 const env = yeoman.createEnv([], { console: console });
 const Generate = require('../lib/routes/generate');
 
-// jest.mock('inquirer');
-
 describe('Generate Route', () => {
   beforeEach(() => {
     this.router = new Router(env);
