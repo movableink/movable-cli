@@ -913,15 +913,15 @@
     uppercamelcase "^3.0.0"
     yeoman-generator "^4.9.0"
 
-"@movable/generator-studio-framework@latest":
-  version "2.12.0-yeoman.0"
-  resolved "https://registry.yarnpkg.com/@movable/generator-studio-framework/-/generator-studio-framework-2.12.0-yeoman.0.tgz#d79ad8ba41a035522e393a0a413b9df984caeb08"
-  integrity sha512-eEnL3Q4c+bHrrgkVCjaIxy8Yc99k/f6ageP4Pe8M33uUVhl+ln6xLcAVz7Zo1eUL8TzKTCFxZqKRjlla3wFpRQ==
+"@movable/generator-studio-framework@*":
+  version "2.14.0-yeoman.0"
+  resolved "https://registry.yarnpkg.com/@movable/generator-studio-framework/-/generator-studio-framework-2.14.0-yeoman.0.tgz#975b33068775e0cfd69dfe1242e1eecc3dcc2e79"
+  integrity sha512-xbfIy1qpiQXlBd5xkmvEDjO6en8ffR3ty85CJOv89NNsb7WXP4iXUYwtdJpc2rnpKOK8vGvgSjJEIkRR4fAWSg==
   dependencies:
     "@movable-internal/blueprint-helper" "^0.1.1"
-    "@movable/studio-framework" "^2.12.0-yeoman.0"
-    "@movable/studio-framework-build-config" "^2.10.0"
-    "@movable/studio-framework-test-helpers" "^2.10.0"
+    "@movable/studio-framework" "^2.14.0-yeoman.0"
+    "@movable/studio-framework-build-config" "^2.14.0-yeoman.0"
+    "@movable/studio-framework-test-helpers" "^2.14.0-yeoman.0"
     capitalize "^2.0.3"
     chalk "^4.0.0"
     mkdirp "^1.0.4"
@@ -937,17 +937,6 @@
   integrity sha512-OIyD1Fon7+w9Z6QOOhkG7oZJ1qKNRpZrfNGSNWIabwJSkF4lbYVx+ABfG8IoVN/Xs3itIT0iiNnCx3cZPQSdwg==
   dependencies:
     prettier "^2.0.5"
-
-"@movable/rollup-plugin-manifest-merger@^2.13.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@movable/rollup-plugin-manifest-merger/-/rollup-plugin-manifest-merger-2.13.0.tgz#7a12a6f79842944b55ecffc39d52abe4d0ceda11"
-  integrity sha512-hKYlmTRd9GqI3YwKsrUawtDbnz9LfdJ6gxRCB3x/Za12Iamo/lOPrxwIDs+DRCV+Pk0CDHknW0fnRIocdJgv4A==
-  dependencies:
-    colorette "^1.1.0"
-    deepmerge "^4.2.2"
-    lodash.omit "^4.5.0"
-    rollup-pluginutils "^2.8.1"
-    yamljs "^0.3.0"
 
 "@movable/rollup-plugin-manifest-merger@^2.14.0-yeoman.0":
   version "2.14.0-yeoman.0"
@@ -972,41 +961,6 @@
     protobufjs "^6.8.6"
     uuid "^3.2.1"
     ws "^5.0.0"
-
-"@movable/studio-framework-build-config@^2.10.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@movable/studio-framework-build-config/-/studio-framework-build-config-2.13.0.tgz#6e395d1349960c84b8daf3b96b3aa2dc3755e340"
-  integrity sha512-s2TKjf8IZjhItEOj4X79c1Sz6ATY29tt8uZTtQtq8rsF9A+jTTuFEY173gfzOKbzhOfHqjTE5GUwh1J1cl/S/g==
-  dependencies:
-    "@babel/core" "^7.7.5"
-    "@babel/plugin-external-helpers" "^7.7.4"
-    "@babel/plugin-transform-runtime" "^7.7.6"
-    "@babel/preset-env" "^7.5.4"
-    "@babel/preset-react" "^7.0.0"
-    "@babel/runtime-corejs2" "^7.5.4"
-    "@movable/rollup-plugin-manifest-merger" "^2.13.0"
-    "@rollup/plugin-url" "^4.0.2"
-    glob "^7.1.6"
-    is-docker "^2.0.0"
-    karma "^5.0.5"
-    karma-chrome-launcher "^3.1.0"
-    karma-html2js-preprocessor "^1.1.0"
-    karma-qunit "^4.0.0"
-    karma-rollup-preprocessor "^7.0.2"
-    qunit "^2.9.3"
-    rollup "^2.3.2"
-    rollup-plugin-babel "^4.3.3"
-    rollup-plugin-babel-minify "^9.1.1"
-    rollup-plugin-commonjs "^10.1.0"
-    rollup-plugin-copy-assets "^2.0.1"
-    rollup-plugin-image "^1.0.2"
-    rollup-plugin-json "^4.0.0"
-    rollup-plugin-node-resolve "^5.2.0"
-    rollup-plugin-peer-deps-external "^2.2.0"
-    rollup-plugin-postcss "^2.0.3"
-    rollup-plugin-replace "^2.2.0"
-    rollup-plugin-serve "^1.0.1"
-    rollup-split-index "^1.1.0"
 
 "@movable/studio-framework-build-config@^2.14.0-yeoman.0":
   version "2.14.0-yeoman.0"
@@ -1043,29 +997,12 @@
     rollup-plugin-serve "^1.0.1"
     rollup-split-index "^1.1.0"
 
-"@movable/studio-framework-test-helpers@^2.10.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@movable/studio-framework-test-helpers/-/studio-framework-test-helpers-2.13.0.tgz#58e908543fba06c3a3340f8d7472dc9be0a68a59"
-  integrity sha512-By28+OUs9Kk/YY58HV8P/xKDI7IGV6yqUjIQVp+1HB0HWAsYEwoydCaT7dS+W9u2u2eKa88ft1PIAd93wxEb5Q==
-  dependencies:
-    "@babel/runtime-corejs2" "^7.5.4"
-
 "@movable/studio-framework-test-helpers@^2.14.0-yeoman.0":
   version "2.14.0-yeoman.0"
   resolved "https://registry.yarnpkg.com/@movable/studio-framework-test-helpers/-/studio-framework-test-helpers-2.14.0-yeoman.0.tgz#6acc7b46a1449ddc1c050fc6475ceedc4dc7609b"
   integrity sha512-VgMyHbKyOgagtmWEQIFbycAvBNyKFzZYKsVhkLLDTNSINk0FkgapOwK3pIfBqk9cWIF45dTzhLmPL7ZShPxZ+Q==
   dependencies:
     "@babel/runtime-corejs2" "^7.5.4"
-
-"@movable/studio-framework@^2.12.0-yeoman.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@movable/studio-framework/-/studio-framework-2.13.0.tgz#e4d5cdce566ea0146f3afcd08240ec4f7e7d89bb"
-  integrity sha512-GyYF1qdiMgXu7oPuPtLl0acpo3fZV4GbysqiJDizYCKYmj9L1iTBp9s6WI/TJJoU18cyjDTxR8nu2UKFHiN3/Q==
-  dependencies:
-    "@babel/runtime-corejs2" "^7.5.4"
-    badwords-list "^1.0.0"
-    global "^4.4.0"
-    is-docker "^2.0.0"
 
 "@movable/studio-framework@^2.14.0-yeoman.0":
   version "2.14.0-yeoman.0"

@@ -5,9 +5,10 @@ addons:
   chrome: stable
 
 language: node_js
+
 node_js:
-  - "12"
-  - "13"
+  - '12'
+  - '13'
 
 branches:
   only:
@@ -15,25 +16,26 @@ branches:
     - beta
     - release
     - auto
-    - /^greenkeeper.*$/
+    - '/^greenkeeper.*$/'
 
 cache:
   yarn: true
   directories:
-    - $HOME/.npm
-    - $HOME/.cache # includes bower's cache
-
-env:
-  - TEST_COMMAND=test
+    - '$HOME/.npm'
+    - '$HOME/.cache'
 
 matrix:
   fast_finish: true
 
+env:
+  global:
+    secure: fDUKSwyHZERoDIF5MQ2qgMtQU5QEw4v83WvLs+m4b3ggsviPVIJin46/JuYjL3WAhtOe+DyIcU4Ibr39R0CSjx5sWbEtmclKMofU95BXtiD0nbqd35sj4W4xpYxcQCV0ARPR7N9RmRiUag/koQqNu6AotY2HIdQbxFura+8zq3WwClh1X/yfIGwz3Z2jFu9cZEU128rGfbki0cdmS4BsUgl47LnCSGCoLwmC1ryntbZPDtyupLDbMfCeE6fsO/jDDpSQK4iBRyVWgnOYaPGW6Noq7ni+wJUjqQ3+UkJassbQ9XJJsJ/ZVi/5VsJ7dDlfVE+c6/uHjtzaAP6rwmRlUUtzZp5VyYXVJlw+DJ2RlBCjIfJMOOObXZVWd4st59nCW+mVmTubor8ZYuJZBPwFPdDfUDIaAzsN3kCbTXuf0YRj1bv733QGd6/PLaRYVz7eJcVfkGkFYi7Mnz8Bz/c04bInGyGyvm1E3TQZZJfV1x+NYbbAuloNv0EOQ8+UFLeclHX1jGLx/biPcgHbmps++Q41hs+y0XomZ9wVA6mlkhrkqjdBpXMU+Zfe+7lZFgJHdC5kki8Un+wiJ37QsMp76KCKv/3aKf/RQkX6SZKfagcUTGBCKLZOsQJEeBQbnJQf6xbXu4smAQ9KsThHg/CI3lGKRq7K7rWzl+BkFrKq8Ps= #PACKAGE_CLOUD_TOKEN
+
 before_install:
-  # travis currently includes yarn v0.17.8 (20170705)
-  # this isn't new enough for our use of --non-interactive
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
+  - curl -s "https://${PACKAGE_CLOUD_TOKEN}:@packagecloud.io/install/repositories/movableink/studio/script.node.sh" | force_npm=1 bash
 
 script:
-  - yarn run $TEST_COMMAND
+  - yarn run test
+  - yarn run test:beta

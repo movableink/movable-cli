@@ -10,7 +10,7 @@ const Help = (app) => {
   // determine if we are in a movable blueprint dir or a seperate dir
   const cwd = process.cwd();
   const { packageJson = {} } = readPkgUp.sync(cwd) || {};
-  const { movableInk = {} } = packageJson;
+  const { movableInk = {}, devDependencies = {} } = packageJson;
 
   // no blueprint found so lets just display the default CLI help text
   if (!movableInk.blueprint) {
@@ -18,23 +18,31 @@ const Help = (app) => {
     return;
   }
 
-  const { blueprint = '', version = '@latest' } = movableInk;
-
+  const { blueprint = '' } = movableInk;
+  const version = devDependencies[blueprint] || '@latest';
   const packagePath = resolveCwd.silent(`${blueprint}/app/utils/`);
 
-  if (packagePath) {
-    const { helpText: packageHelpText } = require(packagePath);
-    console.log('');
-    console.log(`${chalk.green(`This project was built using:`)}`);
-    console.log(`   Generator: ${chalk.magenta(`${blueprint}`)}`);
-    console.log(`   Version: ${chalk.magenta(`${version}`)}`);
-    console.log('');
-    console.log(`${chalk.green(`You can run the following commands:`)}`);
-    packageHelpText();
+  // if package not found show default CLI help text
+  if (!packagePath) {
+    helpText();
     return;
   }
 
-  helpText();
+  const { helpText: packageHelpText } = require(packagePath);
+
+  // if package help text is not a function show default CLI
+  if (typeof packageHelpText !== 'function') {
+    helpText();
+    return;
+  }
+
+  console.log('');
+  console.log(`${chalk.green(`This project was built using:`)}`);
+  console.log(`   Generator: ${chalk.magenta(`${blueprint}`)}`);
+  console.log(`   Version: ${chalk.magenta(`${version}`)}`);
+  console.log('');
+  console.log(`${chalk.green(`You can run the following commands:`)}`);
+  packageHelpText();
   return;
 };
 
