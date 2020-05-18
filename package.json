@@ -36,6 +36,7 @@
     "@movable-internal/generator-remote-upload-blueprint": "latest",
     "@movable-internal/generator-transform-lambda-blueprint": "latest",
     "@movable/generator-studio-framework": "latest",
+    "@movable/generator-studio-framework-package": "latest",
     "@movable/socketproxy": "^0.2.0",
     "app-root-path": "^3.0.0",
     "chalk": "^4.0.0",
