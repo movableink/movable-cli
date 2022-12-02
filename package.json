@@ -46,5 +46,8 @@
     "mocha": "^5.0.5",
     "nock": "^9.2.5",
     "testdouble": "^3.7.0"
+  },
+  "resolutions": {
+    "socket.io-parser": "^4.2.1"
   }
 }
